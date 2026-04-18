@@ -57,7 +57,7 @@ import { GraphLayout, GraphStats } from '../../../core/models/graph.models';
             placeholder="Search method, file, reference or example"
           />
           <span class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-500">
-            / 
+            /
           </span>
         </label>
 
