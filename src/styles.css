@@ -1,3 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-neutral-900 text-neutral-100 font-sans antialiased m-0 overflow-hidden h-screen;
+}
+
+/* Base styles for the Monaco editor to fit nicely */
+.monaco-editor-container {
+  @apply rounded-xl overflow-hidden shadow-inner w-full h-full border border-neutral-700;
+}
 
 @import 'tailwindcss';
