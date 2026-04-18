@@ -131,9 +131,9 @@ export class GraphCanvasComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.cy = cytoscape({
       container: this.canvasHost().nativeElement,
-      wheelSensitivity: 0.55,
-      minZoom: 0.2,
-      maxZoom: 3.2,
+      wheelSensitivity: 4,
+      minZoom: 0.1,
+      maxZoom: 10.0,
       boxSelectionEnabled: false,
       style: GRAPH_STYLES as never
     });
