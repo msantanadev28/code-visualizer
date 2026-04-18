@@ -1,0 +1,20 @@
+
+> code-visualizer@0.0.0 build
+> ng build
+
+[33mΓ¥»[39m Building...
+[32mΓ£ö[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-QETQP5VD.js[39m  [2m | [22m[2m-[22m            [2m | [22m[36m112.83 kB[39m[2m | [22m               [36m33.59 kB[39m
+[32mmain-53T6HCQ5.js[39m   [2m | [22m[2mmain[22m         [2m | [22m[36m106.97 kB[39m[2m | [22m               [36m27.33 kB[39m
+[32mstyles-XQMXZFNK.css[39m[2m | [22m[2mstyles[22m       [2m | [22m [36m23.52 kB[39m[2m | [22m                [36m4.11 kB[39m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m[2m | [22m[1m243.32 kB[22m[2m | [22m               [1m65.03 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-DBQFKIL6.js[39m  [2m | [22m[2mbrowser[22m      [2m | [22m [36m67.74 kB[39m[2m | [22m               [36m17.79 kB[39m
+
+Application bundle generation complete. [4.198 seconds] - 2026-04-18T20:53:16.474Z
+
+Output location: C:\Users\rd28\Videos\Coding 2026\11 - Code visualizer\code-visualizer\dist\code-visualizer
+
