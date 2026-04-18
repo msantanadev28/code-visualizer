@@ -26,6 +26,7 @@ export class GraphCanvasComponent {
       if (!this.cy && data) {
         this.cy = cytoscape({
           container: el,
+          headless: typeof window === 'undefined' || !window.document || !document.createElement('canvas').getContext,
           elements: this.buildElements(data),
           style: [
             {
