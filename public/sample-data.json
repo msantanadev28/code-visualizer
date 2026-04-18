@@ -1,0 +1,39 @@
+{
+  "methods": [
+    {
+      "id": "main",
+      "name": "main()",
+      "file": "index.ts",
+      "code": "function main() {\n  init();\n  loadData();\n  render();\n}",
+      "calls": ["init", "loadData", "render"]
+    },
+    {
+      "id": "init",
+      "name": "init()",
+      "file": "core.ts",
+      "code": "function init() {\n  setupConfig();\n}",
+      "calls": ["setupConfig"]
+    },
+    {
+      "id": "setupConfig",
+      "name": "setupConfig()",
+      "file": "config.ts",
+      "code": "function setupConfig() {\n  // load env vars\n}",
+      "calls": []
+    },
+    {
+      "id": "loadData",
+      "name": "loadData()",
+      "file": "api.ts",
+      "code": "async function loadData() {\n  return fetch('/api/data');\n}",
+      "calls": []
+    },
+    {
+      "id": "render",
+      "name": "render()",
+      "file": "ui.ts",
+      "code": "function render() {\n  // paint UI\n}",
+      "calls": []
+    }
+  ]
+}
