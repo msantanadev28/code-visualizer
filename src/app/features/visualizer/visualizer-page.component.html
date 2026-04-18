@@ -1,0 +1,94 @@
+<div class="relative min-h-screen overflow-hidden bg-[#020617] text-slate-100">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.14),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(249,115,22,0.10),_transparent_28%)]"></div>
+  <div class="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(15,23,42,0.85)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.85)_1px,transparent_1px)] [background-size:40px_40px]"></div>
+
+  <main class="relative mx-auto flex min-h-screen max-w-[1800px] flex-col gap-4 px-4 py-5 md:px-6 md:py-6">
+    <app-toolbar
+      [stats]="state.graphStats()"
+      [layout]="state.layout()"
+      [query]="state.searchQuery()"
+      [leftPanelCollapsed]="state.leftPanelCollapsed()"
+      [rightPanelCollapsed]="state.rightPanelCollapsed()"
+      [hasSelectedNode]="!!state.selectedNode()"
+      [simulationIndex]="state.simulationIndex()"
+      [simulationLength]="state.simulationPath().length"
+      (searchChanged)="state.setSearchQuery($event)"
+      (layoutChanged)="state.setLayout($event)"
+      (togglePanel)="state.togglePanel($event)"
+      (loadSample)="state.loadSample()"
+      (formatJson)="state.formatJson()"
+      (fileImported)="state.importJson($event)"
+      (exportJson)="state.exportJson()"
+      (startSimulation)="state.startSimulation()"
+      (stepBackward)="state.stepSimulation(-1)"
+      (stepForward)="state.stepSimulation(1)"
+      (resetSimulation)="state.resetSimulation()"
+      (expandAll)="state.expandAll()"
+      (collapseSelected)="state.collapseSelectedBranch()"
+    />
+
+    <div
+      class="workspace-grid flex-1 gap-4"
+      [class.workspace-grid--left-collapsed]="state.leftPanelCollapsed()"
+      [class.workspace-grid--right-collapsed]="state.rightPanelCollapsed()"
+      [class.workspace-grid--both-collapsed]="state.leftPanelCollapsed() && state.rightPanelCollapsed()"
+    >
+      @if (!state.leftPanelCollapsed()) {
+        <app-json-editor
+          [json]="state.rawJson()"
+          [parseError]="state.parseError()"
+          (jsonChanged)="state.applyJson($event)"
+        />
+      }
+
+      <section class="relative flex min-h-[34rem] flex-col gap-3 rounded-[32px] border border-white/10 bg-slate-950/40 p-3 shadow-2xl shadow-black/20 backdrop-blur">
+        <div class="grid gap-3 sm:grid-cols-3">
+          <article class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3">
+            <div class="text-[0.68rem] uppercase tracking-[0.2em] text-slate-500">Warnings</div>
+            <div class="mt-2 text-lg font-semibold text-white">{{ state.graph().warnings.length }}</div>
+          </article>
+          <article class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3">
+            <div class="text-[0.68rem] uppercase tracking-[0.2em] text-slate-500">Highlighted path</div>
+            <div class="mt-2 text-lg font-semibold text-white">{{ state.highlightedNodeIds().size }}</div>
+          </article>
+          <article class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3">
+            <div class="text-[0.68rem] uppercase tracking-[0.2em] text-slate-500">Hidden by filters</div>
+            <div class="mt-2 text-lg font-semibold text-white">{{ state.visibleGraph().hiddenNodeCount }}</div>
+          </article>
+        </div>
+
+        @if (state.graph().warnings.length) {
+          <div class="rounded-2xl border border-amber-300/20 bg-amber-300/10 px-4 py-3 text-sm text-amber-50">
+            {{ state.graph().warnings[0] }}
+          </div>
+        }
+
+        <app-graph-canvas
+          class="flex-1"
+          [graph]="state.visibleGraph()"
+          [layout]="state.layout()"
+          [selectedNodeId]="state.selectedNodeId()"
+          [highlightedNodeIds]="state.highlightedNodeIds()"
+          [simulationNodeId]="state.simulationNodeId()"
+          [cycleNodeIds]="cycleNodeIds()"
+          [collapsedNodeIds]="state.collapsedNodeIds()"
+          (nodeSelected)="state.selectNode($event)"
+          (nodeCollapseToggled)="state.toggleNodeCollapsed($event)"
+        />
+      </section>
+
+      @if (!state.rightPanelCollapsed()) {
+        <app-node-details
+          [node]="state.selectedNode()"
+          [incoming]="state.selectedIncoming()"
+          [outgoing]="state.selectedOutgoing()"
+          [cyclePaths]="selectedNodeCycles()"
+          [simulationIndex]="state.simulationIndex()"
+          [simulationLength]="state.simulationPath().length"
+          [collapsed]="state.selectedNode() ? state.isNodeCollapsed(state.selectedNode()!.id) : false"
+          (toggleCollapsed)="state.toggleNodeCollapsed($event)"
+        />
+      }
+    </div>
+  </main>
+</div>

@@ -1,0 +1,23 @@
+<div class="flex items-center justify-between gap-3 border-b border-white/8 px-5 py-4">
+  <div>
+    <h2 class="font-display text-lg font-medium text-white">Interactive Graph</h2>
+    <p class="text-sm text-slate-400">Click a node to inspect its path. Right-click a node to collapse or expand its subtree.</p>
+  </div>
+
+  <div class="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100">
+    {{ graph().nodes.length }} nodes
+  </div>
+</div>
+
+<div class="relative flex-1 overflow-hidden">
+  <div #canvasHost class="h-full w-full"></div>
+
+  @if (!graph().nodes.length) {
+    <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/90 text-center">
+      <p class="font-display text-xl text-white">No visible nodes</p>
+      <p class="mt-2 max-w-sm text-sm text-slate-400">
+        Expand collapsed branches or clear the search filter to repopulate the execution graph.
+      </p>
+    </div>
+  }
+</div>

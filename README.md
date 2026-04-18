@@ -1,59 +1,90 @@
-# CodeVisualizer
+# Code Visualizer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+Code Visualizer is a developer-focused Angular application for exploring execution flow as an interactive graph. It combines a Monaco JSON editor, a Cytoscape-powered graph canvas, and a detail inspector to make method relationships, call paths, cycles, and performance metadata easier to reason about.
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- Angular 21 with standalone components and lazy-loaded feature entry
+- TypeScript with strict typing and signals-based state management
+- Tailwind CSS for the dark visual system and responsive layout
+- Cytoscape.js with `cytoscape-dagre` for DAG, tree, and force-style graph layouts
+- Monaco Editor for JSON authoring
 
-```bash
-ng serve
-```
+## Development
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Install dependencies and start the app:
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Build for production:
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
-
-To build the project run:
+Run unit tests:
 
 ```bash
-ng build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## What The UI Supports
 
-## Running unit tests
+- Left panel Monaco editor with live JSON parsing
+- Center graph canvas with zoom, pan, drag, layout switching, and path highlighting
+- Right panel inspector with call relationships, cycle information, metrics, and code preview
+- Search and contextual filtering
+- Expand and collapse of nested branches
+- Step-by-step execution simulation
+- Cycle and recursion detection
+- Import and export of JSON files
+- Sample dataset for immediate exploration
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Input Schema
 
-```bash
-ng test
+The application expects a JSON document with a top-level `methods` array.
+
+```json
+{
+	"methods": [
+		{
+			"id": "bootstrapApp",
+			"name": "bootstrapApp",
+			"file": "src/main.ts",
+			"code": "export function bootstrapApp() {}",
+			"calls": ["parseExecutionModel", "mountVisualizer"],
+			"references": ["src/main.ts:1"],
+			"examples": ["bootstrapApplication(App, appConfig)"],
+			"metrics": {
+				"executionTimeMs": 4.8,
+				"frequency": 1
+			}
+		}
+	]
+}
 ```
 
-## Running end-to-end tests
+### Schema Notes
 
-For end-to-end (e2e) testing, run:
+- `id`, `name`, and `file` are required.
+- `calls` should contain method ids that exist elsewhere in the document.
+- `code`, `references`, `examples`, `metrics`, and `metadata` are optional.
+- Nested `children` are also supported and are linked automatically as calls from the parent.
 
-```bash
-ng e2e
-```
+## Architecture
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+The codebase follows a feature-oriented standalone Angular structure rather than NgModules, which is the recommended Angular 21 pattern.
 
-## Additional Resources
+- `src/app/core`: models, sample data, parser logic, state management
+- `src/app/features/visualizer`: page shell and visualization components
+- `src/types`: small ambient module declarations for Monaco workers and Cytoscape plugin typing
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Interaction Notes
+
+- Click a node to focus its upstream and downstream execution path.
+- Right-click a node in the graph to collapse or expand that subtree.
+- Use the toolbar to switch between DAG, tree, and force layouts.
+- Start simulation from the toolbar to walk the selected branch in traversal order.

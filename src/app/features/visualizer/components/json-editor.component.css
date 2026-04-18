@@ -1,0 +1,14 @@
+:host {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 1.75rem;
+  background:
+    linear-gradient(180deg, rgb(15 23 42 / 0.95), rgb(2 6 23 / 0.92)),
+    radial-gradient(circle at top, rgb(8 145 178 / 0.18), transparent 45%);
+  box-shadow: 0 30px 60px rgb(2 6 23 / 0.35);
+  overflow: hidden;
+}
+
+.editor-host {
+  height: 100%;
+  min-height: 22rem;
+}

@@ -1,0 +1,9 @@
+:host {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 1.75rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgb(34 211 238 / 0.12), transparent 35%),
+    linear-gradient(180deg, rgb(15 23 42 / 0.96), rgb(2 6 23 / 0.94));
+  box-shadow: 0 35px 70px rgb(2 6 23 / 0.35);
+}

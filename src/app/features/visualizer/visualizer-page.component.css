@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(22rem, 28rem) minmax(0, 1fr) minmax(20rem, 25rem);
+}
+
+.workspace-grid--left-collapsed {
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 25rem);
+}
+
+.workspace-grid--right-collapsed {
+  grid-template-columns: minmax(22rem, 28rem) minmax(0, 1fr);
+}
+
+.workspace-grid--both-collapsed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 1279px) {
+  .workspace-grid,
+  .workspace-grid--left-collapsed,
+  .workspace-grid--right-collapsed,
+  .workspace-grid--both-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

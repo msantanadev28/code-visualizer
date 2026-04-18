@@ -1,0 +1,42 @@
+<div class="flex items-center justify-between gap-3 border-b border-white/8 px-5 py-4">
+  <div>
+    <h2 class="font-display text-lg font-medium text-white">Graph JSON</h2>
+    <p class="text-sm text-slate-400">Edit the schema directly in Monaco. Changes update the graph live.</p>
+  </div>
+
+  @if (parseError()) {
+    <span class="rounded-full border border-rose-400/20 bg-rose-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-rose-200">
+      Invalid JSON
+    </span>
+  } @else {
+    <span class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">
+      Synced
+    </span>
+  }
+</div>
+
+<div class="relative flex-1 overflow-hidden">
+  @if (!usingFallback()) {
+    <div #editorHost class="editor-host"></div>
+  } @else {
+    <textarea
+      class="h-full w-full resize-none border-0 bg-[#07111f] px-5 py-4 font-mono text-sm leading-6 text-slate-100 outline-none"
+      [value]="json()"
+      (input)="onFallbackInput(fallbackEditor.value)"
+      #fallbackEditor
+      spellcheck="false"
+    ></textarea>
+  }
+
+  @if (!editorReady()) {
+    <div class="absolute inset-0 flex items-center justify-center bg-slate-950/90 text-sm text-slate-400">
+      Loading editor...
+    </div>
+  }
+</div>
+
+@if (parseError()) {
+  <div class="border-t border-white/8 bg-rose-500/8 px-5 py-3 text-sm text-rose-100">
+    {{ parseError() }}
+  </div>
+}
