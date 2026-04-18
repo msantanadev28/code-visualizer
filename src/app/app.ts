@@ -14,14 +14,14 @@ import { CommonModule } from '@angular/common';
 })
 export class App {
   private state = inject(GraphStateService);
-  
+
   public getLayoutClass(mode: string): string {
     const base = 'px-3 py-1.5 rounded-md transition-colors';
-    return this.state.layoutMode() === mode 
-      ? `${base} bg-neutral-800 text-emerald-400 shadow-sm` 
+    return this.state.layoutMode() === mode
+      ? `${base} bg-neutral-800 text-emerald-400 shadow-sm`
       : `${base} text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/50`;
   }
-  
+
   public setLayout(mode: 'dagre' | 'breadthfirst' | 'circle'): void {
     this.state.setLayoutMode(mode);
   }

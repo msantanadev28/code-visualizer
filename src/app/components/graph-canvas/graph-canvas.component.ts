@@ -70,7 +70,7 @@ export class GraphCanvasComponent {
         this.cy.on('tap', 'node', (evt) => {
           const node = evt.target;
           this.state.selectNode(node.id());
-          
+
           // Basic highlight effect
           this.cy?.elements().removeClass('highlighted');
           node.addClass('highlighted');

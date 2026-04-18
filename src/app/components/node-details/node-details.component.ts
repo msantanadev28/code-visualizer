@@ -17,7 +17,7 @@ import { GraphStateService } from '../../services/graph-state.service';
           <div class="text-sm text-neutral-400 mb-6 font-mono bg-neutral-900 px-3 py-1 rounded inline-block">
             {{ node()?.file }}
           </div>
-          
+
           <div class="mb-6">
             <h3 class="text-xs uppercase tracking-wider text-neutral-500 font-semibold mb-3">Outgoing Calls ({{ node()?.calls?.length || 0 }})</h3>
             @if (node()?.calls?.length) {
