@@ -10,6 +10,32 @@
 </div>
 
 <div class="relative flex-1 overflow-hidden">
+  <div class="absolute right-4 top-4 z-10 flex gap-2">
+    <button
+      type="button"
+      class="rounded-xl border border-white/10 bg-slate-950/80 px-3 py-2 text-sm font-semibold text-slate-100 shadow-lg shadow-black/25 backdrop-blur transition hover:border-cyan-300/50 hover:bg-cyan-300/10"
+      (click)="zoomIn()"
+      aria-label="Zoom in"
+    >
+      +
+    </button>
+    <button
+      type="button"
+      class="rounded-xl border border-white/10 bg-slate-950/80 px-3 py-2 text-sm font-semibold text-slate-100 shadow-lg shadow-black/25 backdrop-blur transition hover:border-cyan-300/50 hover:bg-cyan-300/10"
+      (click)="zoomOut()"
+      aria-label="Zoom out"
+    >
+      -
+    </button>
+    <button
+      type="button"
+      class="rounded-xl border border-white/10 bg-slate-950/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-100 shadow-lg shadow-black/25 backdrop-blur transition hover:border-cyan-300/50 hover:bg-cyan-300/10"
+      (click)="resetView()"
+    >
+      Reset view
+    </button>
+  </div>
+
   <div #canvasHost class="h-full w-full"></div>
 
   @if (!graph().nodes.length) {

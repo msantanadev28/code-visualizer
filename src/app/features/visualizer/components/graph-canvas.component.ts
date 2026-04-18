@@ -104,6 +104,8 @@ const GRAPH_STYLES = [
   styleUrl: './graph-canvas.component.css'
 })
 export class GraphCanvasComponent implements AfterViewInit, OnDestroy {
+  private static readonly zoomStep = 1.2;
+
   readonly graph = input.required<ProjectedGraph>();
   readonly layout = input.required<GraphLayout>();
   readonly selectedNodeId = input<string | null>(null);
@@ -129,7 +131,9 @@ export class GraphCanvasComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.cy = cytoscape({
       container: this.canvasHost().nativeElement,
-      wheelSensitivity: 0.18,
+      wheelSensitivity: 0.55,
+      minZoom: 0.2,
+      maxZoom: 3.2,
       boxSelectionEnabled: false,
       style: GRAPH_STYLES as never
     });
@@ -148,6 +152,42 @@ export class GraphCanvasComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.graphSyncEffect.destroy();
     this.cy?.destroy();
+  }
+
+  protected zoomIn(): void {
+    this.applyZoom(GraphCanvasComponent.zoomStep);
+  }
+
+  protected zoomOut(): void {
+    this.applyZoom(1 / GraphCanvasComponent.zoomStep);
+  }
+
+  protected resetView(): void {
+    if (!this.cy) {
+      return;
+    }
+
+    const selectedNodeId = this.selectedNodeId();
+    const selectedElement = selectedNodeId ? this.cy.getElementById(selectedNodeId) : undefined;
+
+    if (selectedElement && selectedElement.nonempty()) {
+      this.cy.animate({
+        fit: {
+          eles: selectedElement,
+          padding: 120
+        },
+        duration: 220
+      });
+      return;
+    }
+
+    this.cy.animate({
+      fit: {
+        eles: this.cy.elements(),
+        padding: 56
+      },
+      duration: 220
+    });
   }
 
   private renderGraph(): void {
@@ -270,5 +310,25 @@ export class GraphCanvasComponent implements AfterViewInit, OnDestroy {
           fit: true
         } as LayoutOptions;
     }
+  }
+
+  private applyZoom(multiplier: number): void {
+    if (!this.cy) {
+      return;
+    }
+
+    const currentZoom = this.cy.zoom();
+    const nextZoom = currentZoom * multiplier;
+
+    this.cy.animate({
+      zoom: {
+        level: nextZoom,
+        renderedPosition: {
+          x: this.cy.width() / 2,
+          y: this.cy.height() / 2
+        }
+      },
+      duration: 140
+    });
   }
 }
